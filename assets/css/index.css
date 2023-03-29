@@ -1,0 +1,13 @@
+.welcome{
+    position: relative;
+    top:20%;
+    text-align: center;
+    margin-top: auto;
+}
+
+.message{
+    position: relative;
+    top:40%;
+    text-align: center;
+    margin-top: auto;
+}
