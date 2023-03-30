@@ -8,6 +8,10 @@
     background-position-x: center;
 }
 
+nav{
+    z-index: 1;
+}
+
 .nav-link{
     font-size: 12px;
     color: white;
@@ -17,6 +21,10 @@
 
 h1{
     color: white;
+}
+
+h2{
+    color:white;
 }
 
 .text-wrap a{

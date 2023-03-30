@@ -1,4 +1,4 @@
-<nav class="navbar bg-primary fixed-top" data-bs-theme="dark">
+<nav class="navbar bg-primary" data-bs-theme="dark">
     <div class="nav container-fluid">
         <a class="nav-link" href="index.php" name = "home">Home</a>
         <ul class="nav justify-content-end">
