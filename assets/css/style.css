@@ -34,3 +34,30 @@ h2{
 .text-wrap a:hover{
     color: #9ec5fe;
 }
+
+.icon-item{
+    line-height: normal;
+}
+
+.icon{
+    margin-top: auto;
+    position: relative;
+    width: 5vh;
+    height: 5vh;
+    top:12%;
+}
+
+.icon > img{
+    width:100%;
+    height:100%;
+    border: 10px;
+    position: absolute;
+}
+
+#current-eyes{
+    z-index: 1;  
+}
+
+#current-mouth{
+    z-index: 2;
+}

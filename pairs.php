@@ -11,7 +11,7 @@
     <body>
         <div id = "main">
         <?php
-            //require('./assets/php/navbar.php')
+            require('./assets/php/navbar.php')
         ?>
         </div>
     </body>

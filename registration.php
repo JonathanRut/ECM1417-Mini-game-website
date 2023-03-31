@@ -1,3 +1,42 @@
+<?php
+$invalid_name = false;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $skin = $_POST["skin"];
+    $eyes = $_POST["eyes"];
+    $mouth = $_POST["mouth"];
+
+    $invalid_characters = ['!','@', '#', '"', "'", '%', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '-', ';', ':', ' “', '<', '>', '?', '/'];
+    foreach($invalid_characters as $character){
+        if(str_contains($username, $character)){
+            $invalid_name = true;
+        }
+    }
+    if(!$invalid_name){
+        setcookie(
+            "username",
+            $username,
+        );
+
+        setcookie(
+            "skin",
+            $skin
+        );
+
+        setcookie(
+            "eyes",
+            $eyes
+        );
+
+        setcookie(
+            "mouth",
+            $mouth
+        );
+
+        header("Location: ./index.php");
+    }
+}
+?>
 <html lang = "en">
     <head>
         <title>Register</title>
@@ -15,9 +54,9 @@
             require('./assets/php/navbar.php')
         ?>
             <h1 class="portrait-message">Rotate your device to register account</h1>
-            <form method="post">
+            <form method="post" action="registration.php">
                 <div class="row form-div justify-content-center">
-                    <div class="col-md-3 col-sm-4 justify-content-center">
+                    <div class="col-lg-2 col-md-3 col-sm-4 justify-content-center">
                         <div class="row ">
                             <h2>Skin</h2>
                             <div class="col">
@@ -86,6 +125,11 @@
                             <span class="input-group-text" id="basic-addon1">@</span>
                             <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
+                        <?php
+                        if($invalid_name){
+                            echo "<p>Username cannot contain any special characters</p>";
+                        }
+                        ?>
                         <div class="d-grid gap-2">
                             <input type="submit" class="btn btn-primary btn-sm" value="Create">
                         </div>

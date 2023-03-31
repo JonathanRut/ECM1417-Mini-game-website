@@ -16,10 +16,14 @@
         <h1 class="welcome">Welcome to Pairs</h1>
             
             <div class = "message">
-                <!--<button type="submit" class="btn btn-primary btn-lg" onclick="window.location.href='pairs.php'">Click here to play</button>-->
-                <div class="badge bg-primary text-wrap">
-                    You're not using a registered session? <a href="registration.php">Register now</a>
-                </div>
+                <?php
+                    if(isset($_COOKIE["username"]) && isset($_COOKIE["skin"]) && isset($_COOKIE["eyes"]) && isset($_COOKIE["mouth"])){
+                        echo '<button type="submit" class="btn btn-primary btn-lg" onclick="window.location.href=\'pairs.php\'">Click here to play</button>';
+                    }
+                    else{
+                        echo '<div class="badge bg-primary text-wrap">You\'re not using a registered session? <a href="registration.php">Register now</a></div>';
+                    }
+                ?>                
             </div>
         </div>
     </body>

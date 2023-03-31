@@ -1,3 +1,7 @@
+p{
+    color: white;
+}
+
 input[type=radio] {
     visibility:hidden;
 }
@@ -87,7 +91,7 @@ h2{
     }
 }
 
-@media (orientation : landscape) and (max-width: 1350px) {
+@media (orientation : landscape) and (max-height: 760px) {
 
     .current-image{
         width: 375px;
@@ -99,7 +103,7 @@ h2{
     }
 }
 
-@media (orientation : landscape) and (max-width: 950px) {
+@media (orientation : landscape) and (max-height: 535px) {
 
     .current-image{
         width: 260px;
