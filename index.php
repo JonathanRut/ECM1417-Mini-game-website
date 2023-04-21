@@ -17,7 +17,7 @@
             
             <div class = "message">
                 <?php
-                    if(isset($_COOKIE["username"]) && isset($_COOKIE["skin"]) && isset($_COOKIE["eyes"]) && isset($_COOKIE["mouth"])){
+                    if(isset($_SESSION["username"]) && isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                         echo '<button type="submit" class="btn btn-primary btn-lg" onclick="window.location.href=\'pairs.php\'">Click here to play</button>';
                     }
                     else{
@@ -25,6 +25,8 @@
                     }
                 ?>                
             </div>
+            <div id = "fullscreen" class = "bg-primary"><img src = "./assets/images/fullscreen-enter.png"></div>
+            <script src="./assets/js/fullscreen.js"></script>
         </div>
     </body>
 </html>

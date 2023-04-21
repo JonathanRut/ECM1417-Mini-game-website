@@ -1,4 +1,4 @@
-table {
+div.card-table > table {
     border-collapse: collapse;
     width:100%;
     height: 100%;
@@ -6,6 +6,46 @@ table {
 
 td {
     padding: 10px;
+}
+
+.scoreboard-container{
+    top: 5%;
+    height: 80%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+table.scoreboard{
+    border-color: black;
+    border-spacing: 2px;
+    width: 85%;
+}
+
+table.scoreboard > tr > th{
+    background-color: blue;
+    text-align: center;
+    border: 2px solid black;
+}
+
+table.scoreboard > tr > td{
+    background-color: white;
+    border: 2px solid black;
+    padding: 0px;
+    text-align: center;
+}
+
+table.scoreboard > tr > td.gold{
+    background-color: #FFD700;
+}
+
+table.scoreboard > tr > td.blue{
+    background-color: blue;
+}
+
+table.scoreboard > tr > td.overall-score{
+    font-weight: bold;
 }
 
 h5{
@@ -33,7 +73,6 @@ h5{
 .score{
     padding: 0.5vh;
     border-radius: 5px;
-    background-color: darkblue;
     display: flex;
 }
 
@@ -43,6 +82,14 @@ h5{
     justify-content: center;
     align-items: center;
     height: 80%;
+}
+
+.next-stage{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-centre{

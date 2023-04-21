@@ -19,17 +19,9 @@
                 </div>
                 
             </div>
+            <div id = "fullscreen" class = "bg-primary"><img src = "./assets/images/fullscreen-enter.png"></div>
+            <script src="./assets/js/fullscreen.js"></script>
         </div>
-        <script>
-            let card = document.querySelector('.game-card')
-            card.addEventListener('click', flipCard)
-
-            function flipCard(){
-                console.log(this);
-                this.classList.add('flip');
-                setTimeout(()=>{console.log(this);this.classList.remove('flip')}, 1500);
-            }
-        </script>
         <script src="./assets/js/pairs.js"></script>
     </body>
 </html>

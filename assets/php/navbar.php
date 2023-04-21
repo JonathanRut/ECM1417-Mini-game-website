@@ -6,7 +6,8 @@
                 <a class="nav-link" href="pairs.php" name = "memory"> Play Pairs</a>
             </li>
             <?php
-            if(isset($_COOKIE["username"]) && isset($_COOKIE["skin"]) && isset($_COOKIE["eyes"]) && isset($_COOKIE["mouth"])){
+            session_start();
+            if(isset($_SESSION["username"]) && isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                 echo '<li class="nav-item"><a class="nav-link" href="leaderboard.php" name="leaderboard">Leaderboard</a></li>';
             }
             else{
@@ -14,12 +15,12 @@
             }
             ?>
             <?php
-            if(isset($_COOKIE["skin"]) && isset($_COOKIE["eyes"]) && isset($_COOKIE["mouth"])){
+            if(isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                 echo '<li class="nav-item icon-item">';
                 echo '<div class="icon">';
-                echo '<img id="skin" src="./assets/images/skin/'. $_COOKIE["skin"] .'.png">';
-                echo '<img id="eyes"src="./assets/images/eyes/'. $_COOKIE["eyes"] .'.png">';
-                echo '<img id="mouth"src="./assets/images/mouth/'. $_COOKIE["mouth"] .'.png">';
+                echo '<img id="skin" src="./assets/images/skin/'. $_SESSION["skin"] .'.png">';
+                echo '<img id="eyes"src="./assets/images/eyes/'. $_SESSION["eyes"] .'.png">';
+                echo '<img id="mouth"src="./assets/images/mouth/'. $_SESSION["mouth"] .'.png">';
                 echo '</div>';
                 echo '</li>';
             }

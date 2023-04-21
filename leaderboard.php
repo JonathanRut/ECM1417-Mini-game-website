@@ -12,6 +12,8 @@
         <?php
             require('./assets/php/navbar.php')
         ?>
+            <div id = "fullscreen" class = "bg-primary"><img src = "./assets/images/fullscreen-enter.png"></div>
+            <script src="./assets/js/fullscreen.js"></script>
         </div>
     </body>
 </html>

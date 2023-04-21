@@ -1,6 +1,7 @@
 <?php
 $invalid_name = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_start();
     $username = $_POST["username"];
     $skin = $_POST["skin"];
     $eyes = $_POST["eyes"];
@@ -8,30 +9,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $invalid_characters = ['!','@', '#', '"', "'", '%', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '-', ';', ':', ' “', '<', '>', '?', '/'];
     foreach($invalid_characters as $character){
-        if(str_contains($username, $character)){
+        if(strpos($username, $character)){
             $invalid_name = true;
         }
     }
+
     if(!$invalid_name){
-        setcookie(
-            "username",
-            $username,
-        );
-
-        setcookie(
-            "skin",
-            $skin
-        );
-
-        setcookie(
-            "eyes",
-            $eyes
-        );
-
-        setcookie(
-            "mouth",
-            $mouth
-        );
+        $_SESSION["username"] = $username;
+        $_SESSION["skin"] = $skin;
+        $_SESSION["eyes"] = $eyes;
+        $_SESSION["mouth"] = $mouth;
 
         header("Location: ./index.php");
     }
@@ -136,6 +123,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
             </form>
+            <div id = "fullscreen" class = "bg-primary"><img src = "./assets/images/fullscreen-enter.png"></div>
+            <script src="./assets/js/fullscreen.js"></script>
         </div>
     </body>
 </html>
