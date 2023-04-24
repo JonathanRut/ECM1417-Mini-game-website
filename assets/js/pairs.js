@@ -143,13 +143,13 @@ class Card{
                             }
                             this.table.guessing = false;
                             this.table.turnedOverCards = [];
-                            setTimeout((table)=>{table.foundSet()}, 500, this.table);
                             if((Number(document.getElementById('level-score').innerHTML) - 2000) <= 0){
                                 document.getElementById('level-score').innerHTML = 0;
                                 this.table.level.endLevel();
                             }
                             else{
                                 document.getElementById('level-score').innerHTML = Number(document.getElementById('level-score').innerHTML) - 2000;
+                                setTimeout((table)=>{table.foundSet()}, 500, this.table);
                             }
                         }
                         else{
@@ -218,12 +218,12 @@ class Level{
     }
 
     endLevel(){
+        clearInterval(this.countDown);
         document.getElementById('level-number').innerHTML = Number(document.getElementById('level-number').innerHTML) + 1;
         document.getElementById('overall-score').innerHTML = Number(document.getElementById('overall-score').innerHTML) + Number( document.getElementById('level-score').innerHTML);
         this.game.scores.push(Number(document.getElementById('level-score').innerHTML));
         document.getElementById('level-score').innerHTML = 100000;
         this.table.html.remove();
-        clearInterval(this.countDown);
         this.game.nextLevel();
     }
 }
@@ -267,6 +267,8 @@ class Game{
     }
 
     endGame(){
+        clearInterval(repeatMusic);
+        backgroundMusic.pause();
         let overallScore = Number(document.getElementById('overall-score').innerHTML);
         let scoreBars = document.getElementById('game').childNodes;
         for(let i = 0; i < scoreBars.length; i++){
@@ -313,35 +315,45 @@ class Game{
 
                 let nextStageDiv = document.createElement('div');
                 nextStageDiv.setAttribute('class', 'next-stage');
-                nextStageDiv.innerHTML = '<h5>Would you like to </h5><button class = "btn btn-primary submit-scores">Submit</button><h5> to the leaderboard or </h5><button class = "btn btn-primary play-again">Play Again</button>';
-                gameDiv.appendChild(nextStageDiv);
-                let submitButton = document.querySelector('.submit-scores');
+                if(document.querySelector('.icon') == null){
+                    nextStageDiv.innerHTML = '<h5>To submit scores you must be a registered player, would you like to </h5><button class = "btn btn-primary play-again">Play Again</button>';
+                    gameDiv.appendChild(nextStageDiv);
+                }
+                else{
+                    nextStageDiv.innerHTML = '<h5>Would you like to </h5><button class = "btn btn-primary submit-scores">Submit</button><h5> to the leaderboard or </h5><button class = "btn btn-primary play-again">Play Again</button>';
+                    gameDiv.appendChild(nextStageDiv);
+                    let submitButton = document.querySelector('.submit-scores');
+                    submitButton.addEventListener('click', ()=>{
+                        let xhttp = new XMLHttpRequest();
+                        let data = JSON.stringify(this.scores);
+                        xhttp.onreadystatechange = ()=>{
+                            if(xhttp.readyState == 4 && xhttp.status == 200){
+                                window.location.href = './leaderboard.php';
+                            }
+                        };
+    
+                        xhttp.open('POST', './leaderboard.php');
+                        xhttp.send(data);
+                    });
+                }
                 let playAgainButton = document.querySelector('.play-again');
-                submitButton.addEventListener('click', ()=>{
-                    let xhttp = new XMLHttpRequest();
-
-                    xhttp.onreadystatechange = ()=>{
-                        if(xhttp.readyState == 4 && xhttp.status == 200){
-                            window.location.href = './leaderboard.php';
-                        }
-                    };
-
-                    xhttp.open('POST', './leaderboard.php');
-                    xhttp.send();
-                });
-
-
                 playAgainButton.addEventListener('click', ()=>{
                     let xhttp = new XMLHttpRequest();
-                    let data = JSON.stringify(this.scores);
+                    
                     xhttp.onreadystatechange = ()=>{
                         if(xhttp.readyState == 4 && xhttp.status == 200){
                             let game = new Game(JSON.parse(xhttp.responseText));
+                            backgroundMusic.play();
+                            repeatMusic = setInterval(()=>{
+                                backgroundMusic.pause();
+                                backgroundMusic = new Audio('./assets/sounds/background.mp3');
+                                backgroundMusic.play();
+                            }, 120000);
                         }
                     };
                 
                     xhttp.open("GET", "./assets/php/levelscores.php", true);
-                    xhttp.send(data);
+                    xhttp.send();
                 });
             }
         }
@@ -354,6 +366,8 @@ class Game{
 
 let startButton = document.querySelector(".start-button");
 startButton.addEventListener('click', this.start);
+let backgroundMusic = new Audio('./assets/sounds/background.mp3');
+let repeatMusic;
 
 function start(){
     let xhttp = new XMLHttpRequest();
@@ -361,6 +375,12 @@ function start(){
     xhttp.onreadystatechange = ()=>{
         if(xhttp.readyState == 4 && xhttp.status == 200){
             let game = new Game(JSON.parse(xhttp.responseText));
+            backgroundMusic.play();
+            repeatMusic = setInterval(()=>{
+                backgroundMusic.pause();
+                backgroundMusic = new Audio('./assets/sounds/background.mp3');
+                backgroundMusic.play();
+            }, 120000);
         }
     };
 

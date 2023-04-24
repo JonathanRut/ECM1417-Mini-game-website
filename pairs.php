@@ -13,6 +13,7 @@
         <?php
             require('./assets/php/navbar.php')
         ?>
+            <h1 class="portrait-message">Rotate your device to play the game</h1>
             <div id="game">
                 <div class = "container-centre">
                     <button class="btn btn-primary btn-lg start-button"><h4>Start Game</h4></button>

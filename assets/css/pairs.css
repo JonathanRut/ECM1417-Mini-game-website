@@ -154,3 +154,37 @@ h5{
     position: absolute;
     pointer-events: none;
 }
+
+@media (orientation : portrait){
+    .portrait-message{
+        height: 100%;
+        position: relative;
+        top:40%;
+        text-align: center;
+        margin-top: auto;
+        visibility:visible;
+    }
+
+    #game{
+        visibility: hidden;
+        width: 0%;
+        height: 0%;
+    }
+}
+
+@media (orientation : landscape){
+    .portrait-message{
+        height: 0%;
+        position: relative;
+        top:0%;
+        text-align: center;
+        margin-top: auto;
+        visibility:hidden;
+    }
+
+    #game{
+        visibility: visible;
+        height: 80%;
+        width: 80%;
+    }
+}
