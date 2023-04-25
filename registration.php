@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/registration.css">
         <script src="./assets/js/registration.js"></script>
+        <link rel="icon" href="./assets/images/favicon.png">
     </head>
     <body>
         <div id = "main">
