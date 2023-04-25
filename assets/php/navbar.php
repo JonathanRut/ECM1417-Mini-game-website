@@ -6,7 +6,11 @@
                 <a class="nav-link" href="pairs.php" name = "memory"> Play Pairs</a>
             </li>
             <?php
-            session_start();
+            // A check is made to see if there is already an active session
+            if(session_id() == '') {
+                session_start();
+            }
+            // If the user is a registered player then a link to the leaderboard is echoed otherwise a link to the registration is echoed
             if(isset($_SESSION["username"]) && isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                 echo '<li class="nav-item"><a class="nav-link" href="leaderboard.php" name="leaderboard">Leaderboard</a></li>';
             }
@@ -15,6 +19,7 @@
             }
             ?>
             <?php
+            // If the user is registered there chosen icon is displayed in the navbar 
             if(isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                 echo '<li class="nav-item icon-item">';
                 echo '<div class="icon">';

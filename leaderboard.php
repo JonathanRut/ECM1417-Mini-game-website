@@ -1,15 +1,22 @@
 <?php
+// The scores variable is initialized 
 $scores = [];
+// A check is made to see if the request method is POST or GET
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     session_start();
+    // The data posted is retrieved
     $data = json_decode(file_get_contents('php://input'));
+    // A check is then made to see if the data is set and the user is a registered player
     if(isset($data) && isset($_SESSION["username"])){
+        // The files containing all the leader board scores is read and a record for the players overall score is created
         $scores = json_decode(file_get_contents('./assets/scores.json'), true);
         $overallRecord = json_decode('{"username":"' . $_SESSION["username"] . '", "skin":"'. $_SESSION["skin"] .'", "eyes":"'. $_SESSION["eyes"] .'", "mouth":"'. $_SESSION["mouth"] .'", "score":'. $data[18] .'}', true);
+        // A check is made to see if there are any overall scores stored in the json file already if not the players score is added
         if(count($scores["Overall"]) == 0){
             $scores["Overall"][0] = $overallRecord;
         }
         else{
+            // This for loop finds and inserts the player record into the leaderboard 
             $notAdded = true;
             for($i = 0; $i < count($scores["Overall"]); $i++){
                 if($scores["Overall"][$i]["score"] <= $data[18]){
@@ -18,16 +25,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     break;
                 }
             }
+            // If the score doesn't get inserted it is then added to the end of the leaderboard
             if($notAdded){
                 $scores["Overall"][count($scores["Overall"])] = $overallRecord;
             }
         }
+        // This for loop iterates over each level and adds the players record to the leaderboard
         for($i = 1; $i <= 18; $i++){
+            // The level record for the player is created
             $levelRecord = json_decode('{"username":"' . $_SESSION["username"] . '", "skin":"'. $_SESSION["skin"] .'", "eyes":"'. $_SESSION["eyes"] .'", "mouth":"'. $_SESSION["mouth"] .'", "score":'. $data[$i - 1] .'}', true);
+            // A check is made to see if there are any level scores stored in the json file already if not the players score is added
             if(count($scores["Level ".$i]) == 0){
                 $scores["Level ".$i][0] = $levelRecord;
             }
             else{
+                // This for loop finds and inserts the player record into the leaderboard 
                 $notAdded = true;
                 for($j = 0; $j < count($scores["Level ".$i]); $j++){
                     if($scores["Level ".$i][$j]["score"] <= $data[$i - 1]){
@@ -36,16 +48,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         break;
                     }
                 }
+                // If the score doesn't get inserted it is then added to the end of the leaderboard
                 if($notAdded){
                     $scores["Level ".$i][count($scores["Level ".$i])] = $levelRecord;
                 }
             }
         }
-
+        // Finally the new json string is written to the json file
         file_put_contents('./assets/scores.json', json_encode($scores));
     }
 }
 elseif($_SERVER["REQUEST_METHOD"] == "GET"){
+    // The json file containing scores is read
     $scores = json_decode(file_get_contents('./assets/scores.json'), true);
 }
 ?>
@@ -73,6 +87,7 @@ elseif($_SERVER["REQUEST_METHOD"] == "GET"){
                             <th>Username</th>
                             <th>Score</th>
                             <?php
+                                // The for loop iterates over the overall scores and adds them to the table
                                 for($i = 0; $i < count($scores["Overall"]); $i++){
                                     echo '<tr>';
                                     echo '<td>' . ($i + 1) . '</td>';
@@ -86,10 +101,13 @@ elseif($_SERVER["REQUEST_METHOD"] == "GET"){
                 </div>
                 <br>
                 <?php
+                    // The for loop iterates over each level and creates a table for each levels records
                     for($i = 0; $i < 18; $i++){
+                        // A title container, table and headers are created
                         echo '<h2 class = "title">Level ' . ($i + 1) . '</h2>';
                         echo '<div class = "scoreboard-container"><table class = "scoreboard"><tbody>';
                         echo '<tr><th>Position</th><th>Username</th><th>Score</th></tr>';
+                        // The records are iterated over and added to the table
                         for($j = 0; $j < count($scores["Level " . ($i + 1)]); $j++){
                             echo '<tr>';
                             echo '<td>' . ($j + 1) . '</td>';

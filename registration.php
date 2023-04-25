@@ -1,19 +1,25 @@
 <?php
+// The default value for invalid name is false
 $invalid_name = false;
+// A check is made to see if the request method is post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
+    // The post variable are set as variables
     $username = $_POST["username"];
     $skin = $_POST["skin"];
     $eyes = $_POST["eyes"];
     $mouth = $_POST["mouth"];
 
+    // This array contains all the invalid characters
     $invalid_characters = ['!','@', '#', '"', "'", '%', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '-', ';', ':', ' “', '<', '>', '?', '/'];
+    // The array is iterated through and a check is made to see if the username contains any of these invalid characters
     foreach($invalid_characters as $character){
-        if(strpos($username, $character)){
+        if(strpos($username, $character) || $character == $username[0]){
             $invalid_name = true;
         }
     }
 
+    // If the username is valid the session variables are set and the user is redirected to the landing page
     if(!$invalid_name){
         $_SESSION["username"] = $username;
         $_SESSION["skin"] = $skin;
@@ -38,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
         <div id = "main">
         <?php
+            // The navbar is displayed
             require('./assets/php/navbar.php')
         ?>
             <h1 class="portrait-message">Rotate your device to register account</h1>
@@ -113,6 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <?php
+                        // If the username was invalid then a message is displayed
                         if($invalid_name){
                             echo "<p>Username cannot contain any special characters</p>";
                         }

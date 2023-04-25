@@ -11,12 +11,14 @@
     <body>
         <div id = "main">
         <?php
+            // The navbar is displayed
             require('./assets/php/navbar.php')
         ?>
         <h1 class="welcome">Welcome to Pairs</h1>
             
             <div class = "message">
                 <?php
+                    // If the user is registered a button to play the game is displayed otherwise a link to the registration page is displayed
                     if(isset($_SESSION["username"]) && isset($_SESSION["skin"]) && isset($_SESSION["eyes"]) && isset($_SESSION["mouth"])){
                         echo '<button type="submit" class="btn btn-primary btn-lg" onclick="window.location.href=\'pairs.php\'">Click here to play</button>';
                     }
