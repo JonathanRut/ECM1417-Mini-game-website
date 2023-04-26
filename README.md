@@ -11,6 +11,7 @@
 - Displays on mobile devices well
 ## Registration Page
 ### Features
+- Completed Complex implementation
 - Radio inputs are images
 - Can assemble custom avatar with radio inputs
 - Has preview image
@@ -18,11 +19,9 @@
 - Displays on mobile devices in landscape in portrait a message is given
 ## Pairs Page
 ### Features
+- Completed complex implementation
 - Has a background track
 - Animation for flipping cards
-- Starts on 6 cards and progresses through 8, 10 and 12 cards as the levels progress
-- As levels progress the user will also have to match groups of 3 and 4 cards along with pairs
-- Cards contain random emojis with random features
 - Border of the card changes depending on what stage of guessing
 - Level score starts at 100 000 and minus 7 every millisecond and minuses 2000 every guess if the level score reaches 0 the level is skipped
 - When beating personal best, the background is gold
